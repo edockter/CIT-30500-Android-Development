@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout>
+    <TextView
+        android:text="@string/question_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2" />
+
+    <Button
+        android:text="@string/true_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/true_button" />
+
+    <Button
+        android:text="@string/false_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/false_button" />
+
+</LinearLayout>
