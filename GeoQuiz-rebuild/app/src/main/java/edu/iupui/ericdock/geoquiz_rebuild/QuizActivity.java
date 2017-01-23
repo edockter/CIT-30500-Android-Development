@@ -2,6 +2,7 @@ package edu.iupui.ericdock.geoquiz_rebuild;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -9,7 +10,13 @@ import android.widget.Toast;
 
 import edu.iupui.ericdock.geoquiz_rebuild.R;
 
+import static android.webkit.ConsoleMessage.MessageLevel.LOG;
+
 public class QuizActivity extends AppCompatActivity {
+
+    // TAG FOR LOGGING
+    private static final String TAG = "QuizActivity";
+    private static final String KEY_INDEX = "index";
 
     private Button mTrueButton;
     private Button mFalseButton;
@@ -55,16 +62,27 @@ public class QuizActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // LOG CREATION OF ACTIVITY
+        Log.d(TAG, "onCreate(Bundle) called");
+
+        // SET CONTENT VIEW TO OUR XML
         setContentView(R.layout.activity_quiz);
 
+        // CHECK FOR BUNDLE, USE PREVIOUS INDEX IF IT EXISTS
+        if (savedInstanceState != null) {
+            mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
+        }
+
+        // TEXTVIEW
         mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
         int question = mQuestionBank[mCurrentIndex].getTextResId();
         mQuestionTextView.setText(question);
 
+        // BUTTONS
         mTrueButton = (Button) findViewById(R.id.true_button);
         mFalseButton = (Button) findViewById(R.id.false_button);
         mNextButton = (Button) findViewById(R.id.next_button);
-        mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
         mPrevButton = (Button) findViewById(R.id.prev_button);
 
         // EVENT LISTENERS
@@ -120,6 +138,45 @@ public class QuizActivity extends AppCompatActivity {
                 updateQuestion();
             }
         });
+    }
 
+    // SAVE BUNDLE
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        Log.i(TAG, "onSaveInstanceState");
+        savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
+
+    }
+
+    // LOGGING OVERRIDES
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart() called");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause() called");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume() called");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop() called");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy() called");
     }
 }
