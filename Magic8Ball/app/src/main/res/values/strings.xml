@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Magic 8 Ball</string>
+    <string name="instructions_text">Ask the Oracle a question!</string>
+    <string name="response_button_text">LET THE ORACLE SPEAK</string>
+</resources>
