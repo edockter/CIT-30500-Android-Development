@@ -1,18 +1,22 @@
 package app.ericdock.iupui.edu.nflteams;
 
+import java.util.UUID;
+
 /**
  * Created by ericd on 2/6/2017.
  */
 
 public class NFLTeam {
-    public String mTeamName;
-    public String mTeamShortName;
-    public String mLogoImage;
-    public String mConference;
-    public String mDivision;
-    public String mStadium;
-    public String mLatitude;
-    public String mLongitude;
+
+    private UUID mId;
+    private String mTeamName;
+    private String mTeamShortName;
+    private String mLogoImage;
+    private String mConference;
+    private String mDivision;
+    private String mStadium;
+    private String mLatitude;
+    private String mLongitude;
 
     NFLTeam (String teamName, String teamShortName,
               String logoImage, String conference,
@@ -26,7 +30,13 @@ public class NFLTeam {
         mStadium = stadium;
         mLatitude = latitude;
         mLongitude = longitude;
+
+        // Assign a random GUID when created
+        mId = UUID.randomUUID();
     }
+
+    // LE GETTERSETTERS
+    public UUID getId() { return mId; }
 
     public String getTeamName() {
         return mTeamName;
