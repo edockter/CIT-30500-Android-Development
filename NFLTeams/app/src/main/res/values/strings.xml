@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">NFL Teams</string>
+    <string name="image_placeholder">Image</string>
+    <string name="teamname_placeholder">Team Name</string>
+    <string name="division_placeholder">Division</string>
+    <string name="stadium_placeholder">Stadium</string>
 </resources>
