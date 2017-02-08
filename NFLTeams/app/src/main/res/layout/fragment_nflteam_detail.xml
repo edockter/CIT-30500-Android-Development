@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/logo_placeholder_textview"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:layout_weight="0.5"
+        android:textAlignment="center"
+        android:paddingTop="25sp"
+        android:textColor="@android:color/holo_green_light"
+        android:textSize="36sp"
+        android:text="@string/image_placeholder"
+        />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:gravity="top|right">
+
+        <TextView
+            android:id="@+id/team_name_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="@string/teamname_placeholder"
+            />
+        <TextView
+            android:id="@+id/division_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="TextView"
+            />
+        <TextView
+            android:id="@+id/stadium_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="TextView"
+            />
+    </LinearLayout>
+</LinearLayout>
