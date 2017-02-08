@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">HipsterBands</string>
+    <string name="instructions_first_name_textview">Input your first name:</string>
+    <string name="instructions_last_name_textview">Input your last name:</string>
+    <string name="button_submit_text">Generate Name</string>
+    <string name="band_name_label">Your hipster band name is:</string>
+</resources>
