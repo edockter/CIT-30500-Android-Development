@@ -23,7 +23,7 @@ public class NFLTeamBucket {
         mNFLTeamList = new ArrayList<>();
 
         // Temporarily create all teams manually
-        NFLTeam bills = new NFLTeam("Buffalo Bills", "bills", "bills.png", "AFC", "AFC East", "Ralph Wilson Stadium", "42.773611", "-78.786944");
+        NFLTeam bills = new NFLTeam("Buffalo Bills", "bills", "bills", "AFC", "AFC East", "Ralph Wilson Stadium", "42.773611", "-78.786944");
         NFLTeam dolphins = new NFLTeam("Miami Dolphins", "dolphins", "dolphins.png", "AFC", "AFC East", "Sun Life Stadium", "25.958056", "-80.238889");
         NFLTeam patriots = new NFLTeam("New England Patriots", "patriots", "patriots.png", "AFC", "AFC East", "Gilette Stadium", "42.090944", "-71.264344");
         NFLTeam jets = new NFLTeam("New York Jets", "jets", "jets.png", "AFC", "AFC East", "Met Life Stadium", "40.813611", "-74.074444");

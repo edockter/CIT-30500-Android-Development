@@ -1,5 +1,7 @@
 package app.ericdock.iupui.edu.nflteams;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +10,7 @@ import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.List;
 
@@ -49,16 +52,35 @@ public class NFLTeamListFragment extends Fragment {
     }
 
     private class NFLTeamHolder extends RecyclerView.ViewHolder {
+        public NFLTeam mTeam;
         public TextView mNFLTeamNameTextView;
+        public TextView mNFLTeamDivisionTextView;
+        public ImageView mNFLTeamLogoImageView;
 
         public NFLTeamHolder(View itemView) {
             super(itemView);
 
-            // wire up the built-in textview fo the itemView
-            mNFLTeamNameTextView = (TextView) itemView;
+            // wire up textviews
+            mNFLTeamNameTextView = (TextView) itemView.findViewById(R.id.list_item_nflteam_title_text_view);
+            mNFLTeamDivisionTextView = (TextView) itemView.findViewById(R.id.list_item_nflteam_division_text_view);
+
+            // wire up imageview
+            mNFLTeamLogoImageView = (ImageView) itemView.findViewById(R.id.list_item_logo_imageview);
+        }
+
+        public void bindNFLTeam(NFLTeam nflTeam) {
+            // get context and drawable from the filename we store in the Team Bucket
+            Context context = mNFLTeamLogoImageView.getContext();
+            int logoId = context.getResources().getIdentifier(nflTeam.getTeamShortName(), "drawable", context.getPackageName());
+            Drawable drawable = getResources().getDrawable(logoId);
+
+            // set member variables
+            mTeam = nflTeam;
+            mNFLTeamNameTextView.setText(nflTeam.getTeamName());
+            mNFLTeamDivisionTextView.setText(nflTeam.getDivision());
+            mNFLTeamLogoImageView.setImageDrawable(drawable);
         }
     }
-
 
     private class NFLTeamAdapter extends RecyclerView.Adapter<NFLTeamHolder> {
 
@@ -73,7 +95,7 @@ public class NFLTeamListFragment extends Fragment {
         @Override
         public NFLTeamHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-            View view = layoutInflater.inflate(android.R.layout.simple_list_item_1,
+            View view = layoutInflater.inflate(R.layout.list_item_team,
                     parent,
                     false);
 
@@ -83,7 +105,7 @@ public class NFLTeamListFragment extends Fragment {
         @Override
         public void onBindViewHolder(NFLTeamHolder holder, int position) {
             NFLTeam team = mNFLTeamList.get(position);
-            holder.mNFLTeamNameTextView.setText(team.getTeamName());
+            holder.bindNFLTeam(team);
         }
 
         @Override
