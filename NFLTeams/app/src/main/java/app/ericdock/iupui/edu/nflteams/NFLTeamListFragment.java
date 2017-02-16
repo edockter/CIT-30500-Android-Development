@@ -1,6 +1,7 @@
 package app.ericdock.iupui.edu.nflteams;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 /**
@@ -51,7 +55,7 @@ public class NFLTeamListFragment extends Fragment {
         mNFLTeamRecyclerView.setAdapter(mNFLTeamAdapter);
     }
 
-    private class NFLTeamHolder extends RecyclerView.ViewHolder {
+    private class NFLTeamHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public NFLTeam mTeam;
         public TextView mNFLTeamNameTextView;
         public TextView mNFLTeamDivisionTextView;
@@ -59,6 +63,7 @@ public class NFLTeamListFragment extends Fragment {
 
         public NFLTeamHolder(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
 
             // wire up textviews
             mNFLTeamNameTextView = (TextView) itemView.findViewById(R.id.list_item_nflteam_title_text_view);
@@ -68,20 +73,35 @@ public class NFLTeamListFragment extends Fragment {
             mNFLTeamLogoImageView = (ImageView) itemView.findViewById(R.id.list_item_logo_imageview);
         }
 
+        @Override
+        public void onClick(View v) {
+            // INITIAL TOAST CODE
+            // Toast.makeText(getActivity(), mNFLTeam.getTeamName() + " clicked!", Toast.LENGTH_SHORT).show();
+
+            // BLANK INTENT -- no communication
+            // Intent intent = new Intent(getActivity(), NFLTeamDetailActivity.class);
+
+            Intent intent = NFLTeamDetailActivity.newIntent(getActivity(), mTeam.getId());
+            startActivity(intent);
+        }
+
         public void bindNFLTeam(NFLTeam nflTeam) {
             // get context and drawable from the filename we store in the Team Bucket
             Context context = mNFLTeamLogoImageView.getContext();
             int logoId = context.getResources().getIdentifier(nflTeam.getTeamShortName(), "drawable", context.getPackageName());
-            Drawable drawable = getResources().getDrawable(logoId);
+
+            // IN-CLASS METHOD for drawableID
+            // String uri = "@drawable/" + nflTeam.getTeamShortName();
+            // int imageResource = getResources().getIdentifier(uri, null, getContext().getPackageName());
 
             // set member variables
             mTeam = nflTeam;
             mNFLTeamNameTextView.setText(nflTeam.getTeamName());
             mNFLTeamDivisionTextView.setText(nflTeam.getDivision());
-            mNFLTeamLogoImageView.setImageDrawable(drawable);
+            // mNFLTeamLogoImageView.setImageDrawable(drawable);
+            Glide.with(getContext()).load(logoId).into(mNFLTeamLogoImageView);
         }
     }
-
     private class NFLTeamAdapter extends RecyclerView.Adapter<NFLTeamHolder> {
 
         private List<NFLTeam> mNFLTeamList;
