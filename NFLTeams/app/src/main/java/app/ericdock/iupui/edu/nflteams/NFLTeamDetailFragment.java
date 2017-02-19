@@ -1,12 +1,16 @@
 package app.ericdock.iupui.edu.nflteams;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import org.w3c.dom.Text;
 
@@ -23,6 +27,7 @@ public class NFLTeamDetailFragment extends Fragment {
     private TextView mNFLTeamNameTextView;
     private TextView mDivisionTextView;
     private TextView mStadiumTextView;
+    private ImageView mNFLTeamLogoImageView;
 
     private NFLTeam mNFLTeam;
 
@@ -44,10 +49,18 @@ public class NFLTeamDetailFragment extends Fragment {
         mNFLTeamNameTextView = (TextView) v.findViewById(R.id.team_name_textview);
         mDivisionTextView = (TextView) v.findViewById(R.id.division_textview);
         mStadiumTextView = (TextView) v.findViewById(R.id.stadium_textview);
+        mNFLTeamLogoImageView = (ImageView) v.findViewById(R.id.logo_imageview);
 
         mNFLTeamNameTextView.setText(mNFLTeam.getTeamName());
         mDivisionTextView.setText(mNFLTeam.getDivision());
         mStadiumTextView.setText(mNFLTeam.getStadium());
+
+        // get context and drawable from the filename we store in the Team Bucket
+        Context context = mNFLTeamLogoImageView.getContext();
+        int logoId = context.getResources().getIdentifier(mNFLTeam.getTeamShortName(), "drawable", context.getPackageName());
+
+        // show image
+        Glide.with(getContext()).load(logoId).into(mNFLTeamLogoImageView);
 
         return v;
     }

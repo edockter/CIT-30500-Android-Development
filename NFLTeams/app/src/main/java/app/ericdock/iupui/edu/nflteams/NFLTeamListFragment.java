@@ -47,19 +47,32 @@ public class NFLTeamListFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
+
     private void updateUI() {
         NFLTeamBucket teamBucket = NFLTeamBucket.get(getActivity());
         List<NFLTeam> allTeams = teamBucket.getNFLTeamList();
 
-        mNFLTeamAdapter = new NFLTeamAdapter(allTeams);
-        mNFLTeamRecyclerView.setAdapter(mNFLTeamAdapter);
+        if (mNFLTeamAdapter == null) {
+            mNFLTeamAdapter = new NFLTeamAdapter(allTeams);
+            mNFLTeamRecyclerView.setAdapter(mNFLTeamAdapter);
+        }
+        else
+        {
+            mNFLTeamAdapter.notifyDataSetChanged();
+        }
+
     }
 
     private class NFLTeamHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public NFLTeam mTeam;
-        public TextView mNFLTeamNameTextView;
-        public TextView mNFLTeamDivisionTextView;
-        public ImageView mNFLTeamLogoImageView;
+        private NFLTeam mTeam;
+        private TextView mNFLTeamNameTextView;
+        private TextView mNFLTeamDivisionTextView;
+        private ImageView mNFLTeamLogoImageView;
 
         public NFLTeamHolder(View itemView) {
             super(itemView);
@@ -81,7 +94,7 @@ public class NFLTeamListFragment extends Fragment {
             // BLANK INTENT -- no communication
             // Intent intent = new Intent(getActivity(), NFLTeamDetailActivity.class);
 
-            Intent intent = NFLTeamDetailActivity.newIntent(getActivity(), mTeam.getId());
+            Intent intent = NFLTeamPagerActivity.newIntent(getActivity(), mTeam.getId());
             startActivity(intent);
         }
 
