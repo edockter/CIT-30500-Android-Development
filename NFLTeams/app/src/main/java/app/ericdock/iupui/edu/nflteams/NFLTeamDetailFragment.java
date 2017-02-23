@@ -18,6 +18,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.w3c.dom.Text;
 
@@ -103,7 +104,10 @@ public class NFLTeamDetailFragment extends Fragment implements OnMapReadyCallbac
         // Allow zooming
         mGoogleMap.getUiSettings().setZoomControlsEnabled(true);
 
-        //mGoogleMap.addMarker()
+        // Set all options for marker -- can be done inline
+        MarkerOptions marker = new MarkerOptions().position(stadiumCoords).title(mNFLTeam.getTeamName()).snippet(mNFLTeam.getConference());
+        mGoogleMap.addMarker(marker);
+
         // Move maps to our stadium + update stadium map view
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(stadiumCoords, 14));
         mStadiumMapView.onResume();
