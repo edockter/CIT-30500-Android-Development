@@ -15,8 +15,10 @@
         </intent-filter>
         </activity>
         <activity android:name=".NFLTeamPagerActivity">
-
         </activity>
-    </application>
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC7Mb-tWUdWi2BJAIjgS5TrbBDazJQ99JA" />
+    </application>
 </manifest>

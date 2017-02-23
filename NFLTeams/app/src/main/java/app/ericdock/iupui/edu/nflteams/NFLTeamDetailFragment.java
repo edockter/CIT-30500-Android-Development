@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.LayoutInflaterCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.w3c.dom.Text;
 
@@ -20,7 +27,7 @@ import java.util.UUID;
  * Created by ericd on 2/1/2017.
  */
 
-public class NFLTeamDetailFragment extends Fragment {
+public class NFLTeamDetailFragment extends Fragment implements OnMapReadyCallback {
 
     private static final String ARG_NFLTEAM_ID = "nfl_team_id";
 
@@ -28,7 +35,12 @@ public class NFLTeamDetailFragment extends Fragment {
     private TextView mDivisionTextView;
     private TextView mStadiumTextView;
     private ImageView mNFLTeamLogoImageView;
+    private MapView mStadiumMapView;
 
+    // Map that lives inside the Map View
+    private GoogleMap mGoogleMap;
+
+    // Specific team details for this detail view
     private NFLTeam mNFLTeam;
 
     @Override
@@ -50,6 +62,7 @@ public class NFLTeamDetailFragment extends Fragment {
         mDivisionTextView = (TextView) v.findViewById(R.id.division_textview);
         mStadiumTextView = (TextView) v.findViewById(R.id.stadium_textview);
         mNFLTeamLogoImageView = (ImageView) v.findViewById(R.id.logo_imageview);
+        mStadiumMapView = (MapView) v.findViewById(R.id.stadium_mapview);
 
         mNFLTeamNameTextView.setText(mNFLTeam.getTeamName());
         mDivisionTextView.setText(mNFLTeam.getDivision());
@@ -62,6 +75,10 @@ public class NFLTeamDetailFragment extends Fragment {
         // show image
         Glide.with(getContext()).load(logoId).into(mNFLTeamLogoImageView);
 
+        // Set up Team Stadium Map
+        mStadiumMapView.onCreate(bundle);
+        mStadiumMapView.getMapAsync(this);
+
         return v;
     }
 
@@ -72,5 +89,35 @@ public class NFLTeamDetailFragment extends Fragment {
         NFLTeamDetailFragment fragment = new NFLTeamDetailFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        Log.d("NFLTEAMS", "Map ready triggered.");
+
+        mGoogleMap = googleMap;
+        LatLng stadiumCoords = new LatLng(
+                Double.parseDouble(mNFLTeam.getLatitude()),
+                Double.parseDouble(mNFLTeam.getLongitude()));
+
+        // Allow zooming
+        mGoogleMap.getUiSettings().setZoomControlsEnabled(true);
+
+        //mGoogleMap.addMarker()
+        // Move maps to our stadium + update stadium map view
+        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(stadiumCoords, 14));
+        mStadiumMapView.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mStadiumMapView.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mStadiumMapView.onDestroy();
     }
 }
