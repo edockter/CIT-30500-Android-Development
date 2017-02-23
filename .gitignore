@@ -1,3 +1,5 @@
+# Zipped assignments and demos we don't need in source control
+/Maps/
 /Assignments/
 
 # Built application files
