@@ -67,7 +67,7 @@ public class NFLTeamDetailFragment extends Fragment implements OnMapReadyCallbac
 
         mNFLTeamNameTextView.setText(mNFLTeam.getTeamName());
         mDivisionTextView.setText(mNFLTeam.getDivision());
-        mStadiumTextView.setText(mNFLTeam.getStadium());
+        mStadiumTextView.setText(mNFLTeam.getStadiumName());
 
         // get context and drawable from the filename we store in the Team Bucket
         Context context = mNFLTeamLogoImageView.getContext();
@@ -105,7 +105,7 @@ public class NFLTeamDetailFragment extends Fragment implements OnMapReadyCallbac
         mGoogleMap.getUiSettings().setZoomControlsEnabled(true);
 
         // Set all options for marker -- can be done inline
-        MarkerOptions marker = new MarkerOptions().position(stadiumCoords).title(mNFLTeam.getTeamName()).snippet(mNFLTeam.getConference());
+        MarkerOptions marker = new MarkerOptions().position(stadiumCoords).title(mNFLTeam.getStadiumName());
         mGoogleMap.addMarker(marker);
 
         // Move maps to our stadium + update stadium map view

@@ -78,7 +78,7 @@ public class NFLTeam {
         mDivision = division;
     }
 
-    public String getStadium() {
+    public String getStadiumName() {
         return mStadium;
     }
 
