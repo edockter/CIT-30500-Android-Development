@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 25
@@ -17,6 +18,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java', 'build/generated/source/greendao']
+        }
+    }
 }
 
 dependencies {
@@ -29,4 +36,5 @@ dependencies {
     compile 'com.android.support:support-v4:25.1.0'
     compile 'com.android.support:design:25.1.1'
     compile 'com.joanzapata.iconify:android-iconify:2.2.2'
+    compile 'org.greenrobot:greendao:3.2.0'
 }
