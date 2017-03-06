@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -43,6 +44,17 @@ public abstract class SingleFragmentActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // Grab the content fragment so we can show it
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentById(R.id.content_single_fragment);
+
+        // If it doesn't exist yet (first launch), stick our HomeFragment into it
+        if (fragment == null) {
+            // Get our HomeFragment
+            fragment = createFragment();
+            fm.beginTransaction().add(R.id.content_single_fragment, fragment).commit();
+        }
     }
 
     @Override
@@ -83,19 +95,32 @@ public abstract class SingleFragmentActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        // Add the FragmentManager so we can switch Fragments when a menu item is selected
+        FragmentManager fm = getSupportFragmentManager();
 
-        } else if (id == R.id.nav_slideshow) {
+        // Create a blank fragment, we will store the selected one in here
+        Fragment fragment = null;
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (id == R.id.nav_home) {
+            // Handle the home action
+            fragment = new HomeFragment();
         }
+        else if (id == R.id.nav_location) {
+            fragment = new LocationFragment();
+        }
+        else if (id == R.id.nav_menu) {
+            fragment = new MenuFragment();
+        }
+        else if (id == R.id.nav_order) {
+            fragment = new OrderFragment();
+        }
+        else {
+            // Go to Home screen if any other selection is made
+            fragment = new HomeFragment();
+        }
+
+        // Replace currently selected fragment (whatever it is) with the newly selected fragment
+        fm.beginTransaction().replace(R.id.content_single_fragment, fragment).commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
