@@ -2,6 +2,8 @@ package edu.iupui.ericdock.farbucks;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +20,8 @@ import model.Location;
  */
 
 public class LocationFragment extends Fragment {
-    private TextView mLocationTitleTextView;
+    private RecyclerView mLocationRecyclerView;
+    private LocationAdapter mLocationAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,8 +33,15 @@ public class LocationFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_location, container, false);
 
-        mLocationTitleTextView = (TextView) view.findViewById(R.id.location_title_textview);
+        mLocationRecyclerView = (RecyclerView) view.findViewById(R.id.location_recycler_view);
+        mLocationRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        updateUI();
+
+        return view;
+    }
+
+    private void updateUI() {
         // QUERY FOR A LIST OF ALL LOCATIONS FROM THE DATABASE
         FarbucksBucket farbucksBucket = FarbucksBucket.getInstance(getActivity().getApplication());
         List<Location> allLocations = farbucksBucket.getLocations();
@@ -40,8 +50,48 @@ public class LocationFragment extends Fragment {
         Log.d("FARBUCKS", "There are " + String.valueOf(  allLocations.size()  ) + " locations in the DB.");
 
         // WRITE LOCATION COUNT TO THE SCREEN
-        mLocationTitleTextView.setText("There are " + String.valueOf(  allLocations.size()  ) + " locations in the DB.");
+        //mLocationTitleTextView.setText("There are " + String.valueOf(  allLocations.size()  ) + " locations in the DB.");
 
-        return view;
+        // ADD LOCATIONS TO ADAPTER
+        mLocationAdapter = new LocationAdapter(allLocations);
+        mLocationRecyclerView.setAdapter(mLocationAdapter);
+
+    }
+
+    private class LocationHolder extends RecyclerView.ViewHolder {
+        public TextView mTitleTextView;
+
+        public LocationHolder(View itemView) {
+            super(itemView);
+
+            mTitleTextView = (TextView) itemView;
+        }
+    }
+    private class LocationAdapter extends RecyclerView.Adapter<LocationHolder> {
+        private List<Location> mLocationList;
+
+        public LocationAdapter(List<Location> allLocations) {
+            mLocationList = allLocations;
+        }
+
+        @Override
+        public LocationHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            LayoutInflater inflater = LayoutInflater.from(getActivity());
+
+            View view = inflater.inflate(android.R.layout.simple_list_item_1, parent, false);
+
+            return new LocationHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(LocationHolder holder, int position) {
+            Location thisLocation = mLocationList.get(position);
+            holder.mTitleTextView.setText(thisLocation.getName());
+        }
+
+        @Override
+        public int getItemCount() {
+            return mLocationList.size();
+        }
     }
 }
