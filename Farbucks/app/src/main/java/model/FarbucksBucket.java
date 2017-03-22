@@ -15,6 +15,7 @@ public class FarbucksBucket {
     private static FarbucksBucket sFarbucksBucket;
 
     private LocationDao mLocationDao;
+    private MenuitemDao mMenuItemDao;
 
     private DaoSession mDaoSession;
 
@@ -22,6 +23,7 @@ public class FarbucksBucket {
     private FarbucksBucket(Application context) {
         mDaoSession = ((FarbucksApp) context).getDaoSession();
         mLocationDao = mDaoSession.getLocationDao();
+        mMenuItemDao = mDaoSession.getMenuitemDao();
     }
 
     // RETRIEVE THE SINGLE INSTANCE OF FarbucksBucket
@@ -36,5 +38,11 @@ public class FarbucksBucket {
     public List<Location> getLocations() {
         List<Location> allLocations = mLocationDao.loadAll();
         return allLocations;
+    }
+
+    // RETURN A LIST OF MENU ITEMS IN THE DATABASE
+    public List<Menuitem> getMenuItems() {
+        List<Menuitem> allMenuitems = mMenuItemDao.loadAll();
+        return allMenuitems;
     }
 }
