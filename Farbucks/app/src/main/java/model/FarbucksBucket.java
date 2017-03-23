@@ -1,6 +1,10 @@
 package model;
 
 import android.app.Application;
+import android.support.v4.app.FragmentActivity;
+import android.view.MenuItem;
+
+import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.List;
 
@@ -40,9 +44,22 @@ public class FarbucksBucket {
         return allLocations;
     }
 
+
+    // RETURN A SINGLE MENU ITEM GIVEN AN ID
+    public Location getLocation(Long locationId) {
+        Location location = (Location) mLocationDao.load(locationId);
+        return location;
+    }
+
     // RETURN A LIST OF MENU ITEMS IN THE DATABASE
     public List<Menuitem> getMenuItems() {
         List<Menuitem> allMenuitems = mMenuItemDao.loadAll();
         return allMenuitems;
+    }
+
+    // RETURN A SINGLE MENU ITEM GIVEN AN ID
+    public MenuItem getMenuItem(Long menuitemId) {
+        MenuItem menuitem = (MenuItem) mMenuItemDao.load(menuitemId);
+        return menuitem;
     }
 }

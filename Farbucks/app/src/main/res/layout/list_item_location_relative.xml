@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/list_item_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+    <TextView android:id="@+id/list_item_location_name_textview"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textStyle="bold"
+              android:padding="4dp"
+              tools:text="@string/location_name_placeholder" />
+
+    <TextView android:id="@+id/list_item_location_id_textview"
+              android:layout_alignParentEnd="true"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textStyle="normal"
+              android:paddingRight="8dp"
+              android:paddingTop="4dp"
+
+              tools:text="Store #1007202" />
+
+    <TextView
+        android:id="@+id/list_item_location_city_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/list_item_location_name_textview"
+        android:layout_marginStart="10dp"
+        android:padding="4dp"
+        tools:text="@string/location_city_placeholder"
+        tools:width="200dp"/>
+
+    <TextView android:id="@+id/list_item_location_state_textview"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:padding="4dp"
+              android:layout_below="@id/list_item_location_name_textview"
+              android:layout_toEndOf="@id/list_item_location_city_textview"
+              tools:text="@string/location_state_placeholder" />
+
+    <TextView android:id="@+id/list_item_location_zipcode_textview"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:padding="4dp"
+              android:layout_below="@id/list_item_location_name_textview"
+              android:layout_toEndOf="@id/list_item_location_state_textview"
+              tools:text="@string/location_zipcode_placeholder" />
+</RelativeLayout>

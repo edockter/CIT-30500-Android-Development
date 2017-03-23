@@ -1,9 +1,16 @@
 <resources>
     <string name="app_name">Farbucks</string>
     <string name="title_activity_single_fragment">SingleFragmentActivity</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="action_settings">Settings</string>
+
+    <!-- Use the longest result from the database as a placeholder for name & city
+                            All others are fixed width                  -->
+    <string name="location_image_placeholder">Store Image</string>
+    <string name="location_zipcode_placeholder">90210</string>
+    <string name="location_name_placeholder">Johnson &amp; Wales University-Providen</string>
+    <string name="location_city_placeholder">Upper Southampton Township</string>
+    <string name="location_state_placeholder">ST</string>
+    <string name="location_id_placeholder">1007202</string>
 </resources>

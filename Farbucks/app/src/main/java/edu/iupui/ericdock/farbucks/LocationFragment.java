@@ -1,5 +1,7 @@
 package edu.iupui.ericdock.farbucks;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -58,13 +61,47 @@ public class LocationFragment extends Fragment {
 
     }
 
-    private class LocationHolder extends RecyclerView.ViewHolder {
-        public TextView mTitleTextView;
+    private class LocationHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private Location mLocation;
+        private TextView mNameTextView;
+        private TextView mIdTextView;
+        private TextView mCityTextView;
+        private TextView mStateTextView;
+        private TextView mZipcodeTextView;
 
         public LocationHolder(View itemView) {
             super(itemView);
 
-            mTitleTextView = (TextView) itemView;
+            itemView.setOnClickListener(this);
+
+            // textvewz
+            mNameTextView = (TextView) itemView.findViewById(R.id.list_item_location_name_textview);
+            mIdTextView = (TextView) itemView.findViewById(R.id.list_item_location_id_textview);
+            mCityTextView  = (TextView) itemView.findViewById(R.id.list_item_location_city_textview);
+            mStateTextView = (TextView) itemView.findViewById(R.id.list_item_location_state_textview);
+            mZipcodeTextView = (TextView) itemView.findViewById(R.id.list_item_location_zipcode_textview);
+        }
+
+        @Override
+        public void onClick(View v) {
+            // INITIAL TOAST CODE
+            // Toast.makeText(getActivity(), mNFLTeam.getTeamName() + " clicked!", Toast.LENGTH_SHORT).show();
+
+            // BLANK INTENT -- no communication
+            // Intent intent = new Intent(getActivity(), NFLTeamDetailActivity.class);
+
+            Intent intent = LocationDetailActivity.newIntent(getActivity(), mLocation.getId());
+            startActivity(intent);
+        }
+
+        public void bindLocation(Location location) {
+            // set member variables
+            mLocation = location;
+            mNameTextView.setText(mLocation.getName());
+            mIdTextView.setText("Store #" + mLocation.getId().toString());
+            mCityTextView.setText(mLocation.getCity());
+            mStateTextView.setText(mLocation.getState());
+            mZipcodeTextView.setText(mLocation.getZipcode());
         }
     }
     private class LocationAdapter extends RecyclerView.Adapter<LocationHolder> {
@@ -78,7 +115,7 @@ public class LocationFragment extends Fragment {
         public LocationHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(getActivity());
 
-            View view = inflater.inflate(android.R.layout.simple_list_item_1, parent, false);
+            View view = inflater.inflate(R.layout.list_item_location_relative, parent, false);
 
             return new LocationHolder(view);
         }
@@ -86,7 +123,7 @@ public class LocationFragment extends Fragment {
         @Override
         public void onBindViewHolder(LocationHolder holder, int position) {
             Location thisLocation = mLocationList.get(position);
-            holder.mTitleTextView.setText(thisLocation.getName());
+            holder.bindLocation(thisLocation);
         }
 
         @Override
