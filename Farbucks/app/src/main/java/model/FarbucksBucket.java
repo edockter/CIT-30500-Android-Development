@@ -58,8 +58,8 @@ public class FarbucksBucket {
     }
 
     // RETURN A SINGLE MENU ITEM GIVEN AN ID
-    public MenuItem getMenuItem(Long menuitemId) {
-        MenuItem menuitem = (MenuItem) mMenuItemDao.load(menuitemId);
+    public Menuitem getMenuitem(Long menuitemId) {
+        Menuitem menuitem = (Menuitem) mMenuItemDao.load(menuitemId);
         return menuitem;
     }
 }
