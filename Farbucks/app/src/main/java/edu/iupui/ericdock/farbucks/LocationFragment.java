@@ -87,9 +87,7 @@ public class LocationFragment extends Fragment {
         public void onClick(View v) {
             Fragment locationDetailFragment = LocationDetailFragment.newInstance(mLocation.getId());
 
-            getActivity().getSupportFragmentManager()
-                    .beginTransaction().replace(R.id.content_single_fragment, locationDetailFragment)
-                    .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE).addToBackStack("Detail").commit();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_single_fragment, locationDetailFragment).setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE).addToBackStack("Detail").commit();
         }
 
         public void bindLocation(Location location) {

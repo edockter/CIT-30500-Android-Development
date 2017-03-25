@@ -58,6 +58,15 @@ public class MenuitemDetailFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_menu_detail, container, false);
 
+        // Concatenate string if Size is not empty. Otherwise don't
+        String nameOutput = new String();
+
+        if (!mMenuitem.getSize().isEmpty()) {
+            nameOutput = mMenuitem.getSize() + " ";
+        }
+
+        nameOutput += mMenuitem.getName();
+
         // Wire them up
         mMenuimageImageview = (ImageView) view.findViewById(R.id.menu_detail_menuitem_imageview);
         mNameTextView = (TextView) view.findViewById(R.id.menu_detail_name_textview);
@@ -65,8 +74,9 @@ public class MenuitemDetailFragment extends Fragment {
         mCategoryTextView = (TextView) view.findViewById(R.id.menu_detail_category_textview);
 
         // Set the texts
-        mNameTextView.setText(mMenuitem.getName());
+        mNameTextView.setText(nameOutput);
         mPriceTextView.setText("$" + mMenuitem.getPrice());
+        
         //TODO finish this (after adding Category model)
         mCategoryTextView.setText("TOTO");
 
@@ -79,7 +89,6 @@ public class MenuitemDetailFragment extends Fragment {
 
         return view;
     }
-
 
     public static MenuitemDetailFragment newInstance(Long menuitemId) {
         Bundle args = new Bundle();
