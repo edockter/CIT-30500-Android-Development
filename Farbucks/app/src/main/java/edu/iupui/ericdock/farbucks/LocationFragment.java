@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -84,14 +85,11 @@ public class LocationFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            // INITIAL TOAST CODE
-            // Toast.makeText(getActivity(), mNFLTeam.getTeamName() + " clicked!", Toast.LENGTH_SHORT).show();
+            Fragment locationDetailFragment = LocationDetailFragment.newInstance(mLocation.getId());
 
-            // BLANK INTENT -- no communication
-            // Intent intent = new Intent(getActivity(), NFLTeamDetailActivity.class);
-
-            //Intent intent = LocationDetailActivity.newIntent(getActivity(), mLocation.getId());
-            //startActivity(intent);
+            getActivity().getSupportFragmentManager()
+                    .beginTransaction().replace(R.id.content_single_fragment, locationDetailFragment)
+                    .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE).addToBackStack("Detail").commit();
         }
 
         public void bindLocation(Location location) {

@@ -1,7 +1,6 @@
 package edu.iupui.ericdock.farbucks;
 
-import android.content.Context;
-import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -11,15 +10,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.CameraUpdate;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import java.util.UUID;
 
 import model.FarbucksBucket;
 import model.Location;
@@ -51,23 +48,23 @@ public class LocationDetailFragment extends Fragment implements OnMapReadyCallba
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // TODO figure this out ffs
-        //Bundle args = this.getArguments();
-        //Long locationId = args.getLong(ARG_FARBUCKS_LOCATION_ID, 12);
-        //mLocation = FarbucksBucket.getInstance(getActivity().getApplication()).getLocation(locationId);
+        Bundle args = this.getArguments();
+        Long locationId = args.getLong(ARG_FARBUCKS_LOCATION_ID);
+        mLocation = FarbucksBucket.getInstance(getActivity().getApplication()).getLocation(locationId);
+    }
 
-        mLocation = FarbucksBucket.getInstance(getActivity().getApplication()).getLocation(12L);
-
-        //Long locationId = savedInstanceState.getLong(ARG_FARBUCKS_LOCATION_ID);
-
-        //mLocation = FarbucksBucket.getInstance(getActivity().getApplication()).getLocation(locationId);
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_location_detail, container, false);
 
         // Wire them up
+        mStoreImageView = (ImageView) view.findViewById(R.id.location_detail_store_imageview);
         mDetailMapView = (MapView) view.findViewById(R.id.location_detail_mapview);
         mNameTextView = (TextView) view.findViewById(R.id.location_detail_name_textview);
         mCityTextView = (TextView) view.findViewById(R.id.location_detail_city_textview);
@@ -80,7 +77,12 @@ public class LocationDetailFragment extends Fragment implements OnMapReadyCallba
         mStateTextView.setText(mLocation.getState());
         mZipcodeTextView.setText(mLocation.getZipcode());
 
-        // TODO HERE - Use Glide and set image
+        // Compile asset path to a URI for Glide
+        // For some strange reason, cannot use a strings.xml reference in this
+        Uri assetPath = Uri.parse("file:///android_asset/locations/" + mLocation.getStoreImage() + ".jpg");
+
+        // show image
+        Glide.with(getContext()).load(assetPath).into(mStoreImageView);
 
         // Fire up the map
         mDetailMapView.onCreate(savedInstanceState);
@@ -112,7 +114,7 @@ public class LocationDetailFragment extends Fragment implements OnMapReadyCallba
                 Double.parseDouble(mLocation.getLatitude()),
                 Double.parseDouble(mLocation.getLongitude()));
 
-        // Allow zooming
+        // Allow zoomingzsss
         mGoogleMap.getUiSettings().setZoomControlsEnabled(true);
 
         // TODO: Change these values (what's on the marker)
