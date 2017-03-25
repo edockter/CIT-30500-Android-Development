@@ -51,6 +51,13 @@ public class LocationDetailFragment extends Fragment implements OnMapReadyCallba
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // TODO figure this out ffs
+        //Bundle args = this.getArguments();
+        //Long locationId = args.getLong(ARG_FARBUCKS_LOCATION_ID, 12);
+        //mLocation = FarbucksBucket.getInstance(getActivity().getApplication()).getLocation(locationId);
+
+        mLocation = FarbucksBucket.getInstance(getActivity().getApplication()).getLocation(12L);
+
         //Long locationId = savedInstanceState.getLong(ARG_FARBUCKS_LOCATION_ID);
 
         //mLocation = FarbucksBucket.getInstance(getActivity().getApplication()).getLocation(locationId);
@@ -58,11 +65,6 @@ public class LocationDetailFragment extends Fragment implements OnMapReadyCallba
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        Bundle args = getArguments();
-        Long locationId = (Long) args.getSerializable(ARG_FARBUCKS_LOCATION_ID);
-        mLocation = FarbucksBucket.getInstance(getActivity().getApplication()).getLocation(locationId);
-
         View view = inflater.inflate(R.layout.fragment_location_detail, container, false);
 
         // Wire them up
@@ -95,7 +97,8 @@ public class LocationDetailFragment extends Fragment implements OnMapReadyCallba
         LocationDetailFragment fragment = new LocationDetailFragment();
         fragment.setArguments(args);
 
-        Log.d("FARBUCKS", "locationId " + locationId.toString() + "is added to bundle.");
+        Log.d("FARBUCKS", "locationId is added to bundle.");
+        Log.d("FARBUCKS", locationId.toString() );
         Log.d("FARBUCKS", "Get from args in newInstance() - " + args.getLong(ARG_FARBUCKS_LOCATION_ID));
         return fragment;
     }

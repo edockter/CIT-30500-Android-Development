@@ -90,8 +90,8 @@ public class LocationFragment extends Fragment {
             // BLANK INTENT -- no communication
             // Intent intent = new Intent(getActivity(), NFLTeamDetailActivity.class);
 
-            Intent intent = LocationDetailActivity.newIntent(getActivity(), mLocation.getId());
-            startActivity(intent);
+            //Intent intent = LocationDetailActivity.newIntent(getActivity(), mLocation.getId());
+            //startActivity(intent);
         }
 
         public void bindLocation(Location location) {
