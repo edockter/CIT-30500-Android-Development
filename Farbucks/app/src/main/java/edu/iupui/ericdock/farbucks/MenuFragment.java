@@ -2,6 +2,7 @@ package edu.iupui.ericdock.farbucks;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import model.FarbucksBucket;
+import model.Location;
 import model.Menuitem;
 
 /**
@@ -54,13 +56,40 @@ public class MenuFragment extends Fragment {
         mMenuItemRecyclerView.setAdapter(mMenuItemAdapter);
     }
 
-    private class MenuItemHolder extends RecyclerView.ViewHolder {
-        public TextView mTitleTextView;
+    private class MenuItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private TextView mTitleTextView;
+        private Menuitem mMenuitem;
 
         public MenuItemHolder(View itemView) {
             super(itemView);
 
+            itemView.setOnClickListener(this);
+
             mTitleTextView = (TextView) itemView;
+        }
+
+        @Override
+        public void onClick(View v) {
+            Fragment menuitemDetailFragment = MenuitemDetailFragment.newInstance(mMenuitem.getId());
+
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.content_single_fragment, menuitemDetailFragment)
+                    .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE).addToBackStack("MenuDetail").commit();
+        }
+
+        public void bindMenuitem(Menuitem menuitem) {
+            // set member variables
+            mMenuitem = menuitem;
+
+            mTitleTextView.setText(mMenuitem.getName());
+
+            // TODO update and set after making layout
+            /* mNameTextView.setText(mLocation.getName());
+            mIdTextView.setText("Store #" + mLocation.getId().toString());
+            mCityTextView.setText(mLocation.getCity());
+            mStateTextView.setText(mLocation.getState());
+            mZipcodeTextView.setText(mLocation.getZipcode());
+            */
         }
     }
 
@@ -83,7 +112,7 @@ public class MenuFragment extends Fragment {
         @Override
         public void onBindViewHolder(MenuItemHolder holder, int position) {
             Menuitem thisMenuitem = mMenuitemList.get(position);
-            holder.mTitleTextView.setText(thisMenuitem.getName());
+            holder.bindMenuitem(thisMenuitem);
         }
 
         @Override
