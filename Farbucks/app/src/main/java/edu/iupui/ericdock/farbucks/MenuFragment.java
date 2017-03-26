@@ -100,8 +100,6 @@ public class MenuFragment extends Fragment {
                     .getApplication())
                     .getSizesAndPrices(mMenuitem.getName());
 
-            //mTitleTextView.setText(mMenuitem.getName());
-
             // Add up all possible prices
             // Iterate all items with the same name to get all sizes and prices
             List<String> sizes = new ArrayList<String>();
@@ -139,6 +137,7 @@ public class MenuFragment extends Fragment {
             Uri assetPath = Uri.parse("file:///android_asset/menuitems/" + mMenuitem.getMenuImage() + ".jpg");
 
             // show image
+
             Glide.with(getContext()).load(assetPath).into(mImageView);
 
         }
