@@ -1,10 +1,8 @@
 package model;
 
 import android.app.Application;
-import android.support.v4.app.FragmentActivity;
-import android.view.MenuItem;
 
-import org.greenrobot.greendao.query.QueryBuilder;
+import org.greenrobot.greendao.query.WhereCondition;
 
 import java.util.List;
 
@@ -20,6 +18,7 @@ public class FarbucksBucket {
 
     private LocationDao mLocationDao;
     private MenuitemDao mMenuItemDao;
+    private MenucategoryDao mMenuCategoryDao;
 
     private DaoSession mDaoSession;
 
@@ -28,6 +27,7 @@ public class FarbucksBucket {
         mDaoSession = ((FarbucksApp) context).getDaoSession();
         mLocationDao = mDaoSession.getLocationDao();
         mMenuItemDao = mDaoSession.getMenuitemDao();
+        mMenuCategoryDao = mDaoSession.getMenucategoryDao();
     }
 
     // RETRIEVE THE SINGLE INSTANCE OF FarbucksBucket
@@ -57,9 +57,41 @@ public class FarbucksBucket {
         return allMenuitems;
     }
 
+    public List<Menuitem> getDistinctMenuItems() {
+        List<Menuitem> distinctMenuItems = mMenuItemDao.queryBuilder()
+                .where(new WhereCondition.StringCondition("1 GROUP BY NAME")).list();
+
+        return distinctMenuItems;
+    }
+
+    // getSizesAndPrices
+
+    // Search by Name to process Sizes & prices
+    public List<Menuitem> getSizesAndPrices(String name) {
+        List<Menuitem> menuItems = mMenuItemDao.queryBuilder()
+                .where(MenuitemDao.Properties.Name.eq(name))
+                .orderAsc(MenuitemDao.Properties.Name).list();
+
+        return menuItems;
+    }
+
     // RETURN A SINGLE MENU ITEM GIVEN AN ID
     public Menuitem getMenuitem(Long menuitemId) {
         Menuitem menuitem = (Menuitem) mMenuItemDao.load(menuitemId);
         return menuitem;
+    }
+
+    // RETURN A CATEGORY NAME GIVEN AN ID
+    public String getCategoryName(Long menuCategoryId) {
+        Menucategory category = mMenuCategoryDao.load(menuCategoryId);
+        return category.getName();
+    }
+
+
+    // RETURN A CATEGORY NAME GIVEN AN ID (With string conversion)
+    public String getCategoryName(String menuCategoryId) {
+        Long categoryId = Long.valueOf(menuCategoryId);
+        Menucategory category = mMenuCategoryDao.load(categoryId);
+        return category.getName();
     }
 }

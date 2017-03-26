@@ -5,18 +5,19 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.apache.commons.lang.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringJoiner;
 
 import model.FarbucksBucket;
 import model.Menuitem;
@@ -32,6 +33,8 @@ public class MenuitemDetailFragment extends Fragment {
 
     // the precious data
     private Menuitem mMenuitem;
+    private String mMenucategory;
+    private List<Menuitem> mNameMatches;
 
     // form controls
     private ImageView mMenuimageImageview;
@@ -45,7 +48,11 @@ public class MenuitemDetailFragment extends Fragment {
 
         Bundle args = this.getArguments();
         Long locationId = args.getLong(ARG_FARBUCKS_MENUITEM_ID);
-        mMenuitem = FarbucksBucket.getInstance(getActivity().getApplication()).getMenuitem(locationId);
+
+        FarbucksBucket bucket = FarbucksBucket.getInstance(getActivity().getApplication());
+        mMenuitem = bucket.getMenuitem(locationId);
+        mMenucategory = bucket.getCategoryName(mMenuitem.getCategoryId());
+        mNameMatches = bucket.getSizesAndPrices(mMenuitem.getName());
     }
 
     @Override
@@ -73,12 +80,26 @@ public class MenuitemDetailFragment extends Fragment {
         mPriceTextView = (TextView) view.findViewById(R.id.menu_detail_price_textview);
         mCategoryTextView = (TextView) view.findViewById(R.id.menu_detail_category_textview);
 
+        // Iterate all items with the same name to get all sizes and prices
+        List<String> sizes = new ArrayList<String>();
+        List<String> prices = new ArrayList<String>();
+
+        // pop them all on stacks, collapse down to string for output (with a comma for splitting)
+        for (Menuitem item : mNameMatches) {
+            sizes.add(item.getSize());
+            prices.add("$" + item.getPrice());
+        }
+
         // Set the texts
         mNameTextView.setText(nameOutput);
-        mPriceTextView.setText("$" + mMenuitem.getPrice());
-        
+        mPriceTextView.setText(StringUtils.join(sizes.toArray(), ",") + StringUtils.join(prices.toArray(), ","));
+
         //TODO finish this (after adding Category model)
-        mCategoryTextView.setText("TOTO");
+        //TODO - Edit layout, add multiple Displays for a Price & String
+        // Base on # of results in mNameMatches. if 1, use the single-box. else, set the multiple ones;
+
+        mCategoryTextView.setText(mMenucategory);
+
 
         // Compile asset path to a URI for Glide
         // For some strange reason, cannot use a strings.xml reference in this
