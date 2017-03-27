@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="350dp"
             android:gravity="top"
             xmlns:tools="http://schemas.android.com/tools">
 
@@ -11,36 +11,36 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         tools:layout_marginTop="5dp"
-        android:layout_weight="7"
-        android:padding="5dp"/>
+        tools:layout_marginLeft="5dp"
+        tools:layout_marginRight="5dp"
+        android:layout_weight="5"
+        />
 
         <TextView
             android:id="@+id/list_item_menuitem_name_textview"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:padding="5dp"
+            android:paddingTop="2dp"
             android:layout_weight="1"
             android:textAlignment="center"
-            android:text="@string/location_name_placeholder"
+            />
 
-            />
-        <TextView
-            android:id="@+id/list_item_menuitem_sizes_textview"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:padding="5dp"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            android:text="@string/location_city_placeholder"
-            />
         <TextView
             android:id="@+id/list_item_menuitem_prices_textview"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:padding="5dp"
+            android:paddingTop="2dp"
             android:layout_weight="1"
             android:textAlignment="center"
-            android:text="@string/location_state_placeholder"
+            />
+
+        <TextView
+            android:id="@+id/list_item_menuitem_sizes_textview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingTop="2dp"
+            android:layout_weight="1"
+            android:textAlignment="center"
             />
 
 </LinearLayout>

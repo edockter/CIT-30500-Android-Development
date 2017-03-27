@@ -138,7 +138,7 @@ public class MenuFragment extends Fragment {
 
             // show image
 
-            Glide.with(getContext()).load(assetPath).into(mImageView);
+            Glide.with(getContext()).load(assetPath).centerCrop().into(mImageView);
 
         }
     }
