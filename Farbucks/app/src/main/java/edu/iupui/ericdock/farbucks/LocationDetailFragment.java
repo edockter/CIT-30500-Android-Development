@@ -76,6 +76,7 @@ public class LocationDetailFragment extends Fragment implements OnMapReadyCallba
         mCityTextView.setText(mLocation.getCity());
         mStateTextView.setText(mLocation.getState());
         mZipcodeTextView.setText(mLocation.getZipcode());
+        getActivity().setTitle(mLocation.getName());
 
         // Compile asset path to a URI for Glide
         // For some strange reason, cannot use a strings.xml reference in this

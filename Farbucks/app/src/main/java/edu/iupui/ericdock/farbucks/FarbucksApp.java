@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.joanzapata.iconify.Iconify;
+import com.joanzapata.iconify.fonts.FontAwesomeModule;
+
 import org.greenrobot.greendao.database.Database;
 
 import java.io.File;
@@ -36,6 +39,8 @@ public class FarbucksApp extends Application {
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, DATABASE_NAME);
         Database db = helper.getWritableDb();
         mDaoSession = new DaoMaster(db).newSession();
+
+        Iconify.with(new FontAwesomeModule());
     }
 
     public DaoSession getDaoSession() {

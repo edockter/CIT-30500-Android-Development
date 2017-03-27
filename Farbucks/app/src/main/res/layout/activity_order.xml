@@ -11,4 +11,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.iupui.ericdock.farbucks.HomeActivity">
 
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="10dp"
+        android:inputType="textPersonName"
+        android:text="@string/order_placeholder"
+        android:textSize="36sp"/>
 </RelativeLayout>

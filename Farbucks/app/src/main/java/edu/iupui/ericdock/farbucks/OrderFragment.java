@@ -26,6 +26,8 @@ public class OrderFragment extends Fragment {
 
         mOrderTitleTextView = (TextView) view.findViewById(R.id.order_title_textview);
 
+        getActivity().setTitle(R.string.label_order);
+
         return view;
     }
 }

@@ -41,6 +41,8 @@ public class MenuitemDetailFragment extends Fragment {
     private TextView  mNameTextView;
     private TextView  mPriceTextView;
     private TextView  mCategoryTextView;
+    private TextView  mPrice2TextView;
+    private TextView  mPrice3TextView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,6 +80,8 @@ public class MenuitemDetailFragment extends Fragment {
         mMenuimageImageview = (ImageView) view.findViewById(R.id.menu_detail_menuitem_imageview);
         mNameTextView = (TextView) view.findViewById(R.id.menu_detail_name_textview);
         mPriceTextView = (TextView) view.findViewById(R.id.menu_detail_price_textview);
+        mPrice2TextView = (TextView) view.findViewById(R.id.menu_detail_price2_textview);
+        mPrice3TextView = (TextView) view.findViewById(R.id.menu_detail_price3_textview);
         mCategoryTextView = (TextView) view.findViewById(R.id.menu_detail_category_textview);
 
         // Iterate all items with the same name to get all sizes and prices
@@ -93,13 +97,20 @@ public class MenuitemDetailFragment extends Fragment {
         // Set the texts
         mNameTextView.setText(nameOutput);
         mPriceTextView.setText(StringUtils.join(sizes.toArray(), ",") + StringUtils.join(prices.toArray(), ","));
+        getActivity().setTitle(mMenuitem.getName());
 
-        //TODO finish this (after adding Category model)
-        //TODO - Edit layout, add multiple Displays for a Price & String
         // Base on # of results in mNameMatches. if 1, use the single-box. else, set the multiple ones;
 
-        mCategoryTextView.setText(mMenucategory);
+        if (sizes.size() == 1) {
+            mPriceTextView.setText(StringUtils.join(prices.toArray()));
+        }
+        else {
+            mPriceTextView.setText(sizes.get(0) + " - " + prices.get(0));
+            mPrice2TextView.setText(sizes.get(1) + " - " + prices.get(1));
+            mPrice3TextView.setText(sizes.get(2) + " - " + prices.get(2));
+        }
 
+        mCategoryTextView.setText(mMenucategory);
 
         // Compile asset path to a URI for Glide
         // For some strange reason, cannot use a strings.xml reference in this

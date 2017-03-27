@@ -1,12 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/fragment_home"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/home_logo_imageview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        tools:layout_marginTop="5dp"
+        tools:layout_marginLeft="5dp"
+        tools:layout_marginRight="5dp"
+        android:layout_weight="2"
+        android:src="@mipmap/ic_logo"
+        />
+
     <TextView
         android:id="@+id/home_title_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Home" />
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="@string/home_welcome"
+        android:textAlignment="center"
+        android:textSize="45dp"
+        android:textStyle="bold"
+        android:typeface="sans"/>
 
-</RelativeLayout>
+</LinearLayout>

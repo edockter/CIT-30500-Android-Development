@@ -59,6 +59,7 @@ public class LocationFragment extends Fragment {
         // ADD LOCATIONS TO ADAPTER
         mLocationAdapter = new LocationAdapter(allLocations);
         mLocationRecyclerView.setAdapter(mLocationAdapter);
+        getActivity().setTitle(R.string.label_location);
 
     }
 

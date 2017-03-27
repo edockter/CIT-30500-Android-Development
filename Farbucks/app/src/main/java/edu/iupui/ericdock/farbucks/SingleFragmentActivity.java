@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.view.menu.MenuView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +15,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.joanzapata.iconify.IconDrawable;
+import com.joanzapata.iconify.fonts.FontAwesomeIcons;
 
 public abstract class SingleFragmentActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -27,6 +31,7 @@ public abstract class SingleFragmentActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,6 +40,7 @@ public abstract class SingleFragmentActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
+        */
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -55,6 +61,13 @@ public abstract class SingleFragmentActivity extends AppCompatActivity
             fragment = createFragment();
             fm.beginTransaction().add(R.id.content_single_fragment, fragment).commit();
         }
+
+        // Set icons with Iconify
+        navigationView.getMenu().findItem(R.id.nav_home).setIcon(new IconDrawable(this, FontAwesomeIcons.fa_home).colorRes(android.R.color.darker_gray).actionBarSize());
+        navigationView.getMenu().findItem(R.id.nav_location).setIcon(new IconDrawable(this, FontAwesomeIcons.fa_globe).colorRes(android.R.color.darker_gray).actionBarSize());
+        navigationView.getMenu().findItem(R.id.nav_menu).setIcon(new IconDrawable(this, FontAwesomeIcons.fa_coffee).colorRes(android.R.color.darker_gray).actionBarSize());
+        navigationView.getMenu().findItem(R.id.nav_order).setIcon(new IconDrawable(this, FontAwesomeIcons.fa_empire).colorRes(android.R.color.darker_gray).actionBarSize());
+
     }
 
     @Override
@@ -82,9 +95,9 @@ public abstract class SingleFragmentActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+      /*  if (id == R.id.action_settings) {
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
@@ -124,6 +137,7 @@ public abstract class SingleFragmentActivity extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
         return true;
     }
 }

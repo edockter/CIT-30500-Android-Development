@@ -26,7 +26,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         mHomeTitleTextView = (TextView) view.findViewById(R.id.home_title_textview);
-
+        getActivity().setTitle(R.string.label_home);
         return view;
     }
 }

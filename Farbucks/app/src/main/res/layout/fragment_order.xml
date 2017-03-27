@@ -3,10 +3,16 @@
                 android:id="@+id/fragment_order"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-    <TextView
+
+    <com.joanzapata.iconify.widget.IconTextView
         android:id="@+id/order_title_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Order" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="{fa-clock-o} Coming Soon!"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textSize="36sp"/>
 
 </RelativeLayout>

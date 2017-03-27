@@ -61,6 +61,7 @@ public class MenuFragment extends Fragment {
         // ADD MENUITEM TO ADAPTER
         mMenuItemAdapter = new MenuItemAdapter(allMenuitems);
         mMenuItemRecyclerView.setAdapter(mMenuItemAdapter);
+        getActivity().setTitle(R.string.label_menu);
     }
 
     private class MenuItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
