@@ -124,7 +124,7 @@ public class LocationDetailFragment extends Fragment implements OnMapReadyCallba
         mGoogleMap.addMarker(marker);
 
         // Move maps to our store + update map view
-        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locationCoords, 14));
+        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locationCoords, 10));
         mDetailMapView.onResume();
     }
 
