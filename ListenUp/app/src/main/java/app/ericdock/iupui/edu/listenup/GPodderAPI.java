@@ -21,4 +21,7 @@ public interface GPodderAPI {
 
     @GET("api/2/data/podcast.json?url={url}")
     Call<Podcast> getPodcast(@Path("url") String url);
+
+    @GET("api/2/devices/{username}.json")
+    Call<String> getDevices(@Path("username") String username);
 }
