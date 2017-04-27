@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/list_item_podcast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/list_item_podcast_logo_imageview"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:padding="4dp"
+        android:layout_alignBottom="@+id/list_item_podcast_subscribers_textview"
+        android:layout_alignParentTop="true"/>
+
+    <TextView android:id="@+id/list_item_podcast_title_textview"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_toRightOf="@id/list_item_podcast_logo_imageview"
+              android:textStyle="bold"
+              android:padding="4dp"
+              tools:text="Podcast Name" />
+
+    <TextView android:id="@+id/list_item_podcast_subscribers_textview"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:padding="4dp"
+              android:layout_toRightOf="@id/list_item_podcast_logo_imageview"
+              android:layout_below="@id/list_item_podcast_title_textview"
+              tools:text="Subscriber Count" />
+</RelativeLayout>
