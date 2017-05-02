@@ -112,6 +112,7 @@ public class LoginFragment extends Fragment {
 
                             if (response.isSuccessful()) {
                                 Log.d("LISTENUP", String.format("Login success!  Login status: %s", response.code()));
+                                Toast.makeText(getContext(), "Login Successful!", Toast.LENGTH_SHORT).show();
                                 // Success! Let's save these good credentials
                                 mLoginSuccessful = true;
                                 updateUI();
@@ -200,6 +201,7 @@ public class LoginFragment extends Fragment {
 
                 if (response.isSuccessful()) {
                     Log.d("LISTENUP", String.format("Device Add success!  Status: %s", response.code()));
+                    Toast.makeText(getContext(), "Device registered as a podcast client.", Toast.LENGTH_SHORT).show();
                 }
                 else if (response.code() >= 400 && response.code() < 500) {
                     Log.d("LISTENUP", String.format("Bad Device Add request!  Device call status: %s", response.code()));
