@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,8 +28,8 @@ import retrofit2.Response;
  */
 
 public class TagListFragment extends Fragment {
-
     private RecyclerView mTagListRecyclerView;
+    private ProgressBar mProgressBar;
     private TagAdapter mTagAdapter;
     private List<Tag> mTagList;
 
@@ -40,9 +41,15 @@ public class TagListFragment extends Fragment {
         // Inflate
         View view = inflater.inflate(R.layout.fragment_taglist, container, false);
 
-        // wire up
+        // Wire up recyclerview
         mTagListRecyclerView = (RecyclerView) view.findViewById(R.id.taglist_recycler_view);
         mTagListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        // Hide RecyclerView
+        mTagListRecyclerView.setVisibility(View.GONE);
+
+        // Wire up progress indicator
+        mProgressBar = (ProgressBar) view.findViewById(R.id.taglist_progress);
 
         // Connect to API
         GPodderAPI client = ServiceGenerator.createService(GPodderAPI.class);
@@ -58,6 +65,11 @@ public class TagListFragment extends Fragment {
                 updateUI(tags);
                 Log.d("LISTENUP", "Success!");
                 Log.d("LISTENUP", response.body().toString());
+
+                // Hide progress bar and show recyclerview
+                mProgressBar.setVisibility(View.GONE);
+                mTagListRecyclerView.setVisibility(View.VISIBLE);
+                mTagAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -65,6 +77,10 @@ public class TagListFragment extends Fragment {
                 Log.d("LISTENUP", "call = " + call.toString());
                 Log.d("LISTENUP", t.toString());
                 Log.d("LISTENUP", "Womp womp.");
+
+                // Hide progress bar and show recyclerview
+                mProgressBar.setVisibility(View.GONE);
+                mTagListRecyclerView.setVisibility(View.VISIBLE);
 
                 // Report error to user
                 Tag errorTag = new Tag();
@@ -116,6 +132,7 @@ public class TagListFragment extends Fragment {
         }
 
         public void bindTag(Tag tag) {
+
             mTag = tag;
 
             this.mTagTextView.setText(tag.getTag());

@@ -1,10 +1,18 @@
 <resources>
-    <string name="app_name">ListenUp</string>
+    <string name="app_name">ListenUp!</string>
+    <string name="app_subheader">Podcast Manager!</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="login_username_label">Username</string>
     <string name="login_password_label">Password</string>
-    <string name="login_header">Login Creds</string>
+    <string name="login_header">Login</string>
     <string name="login_button">Login</string>
     <string name="action_settings">Settings</string>
+
+    <string name="login_button_loggedin">Update Login</string>
+
+    <string name="USERNAME_KEY">gpodder_username</string>
+    <string name="PASSWORD_KEY">gpodder_password</string>
+    <string name="BOOLEAN_KEY">gpodder_login_status</string>
+    <string name="DEVICE_KEY">gpodder_device_id</string>
 </resources>

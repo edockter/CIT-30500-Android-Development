@@ -3,6 +3,7 @@ package app.ericdock.iupui.edu.listenup;
 import android.content.Context;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Credentials;
 import okhttp3.Interceptor;
@@ -28,7 +29,11 @@ private static final String BASE_URL = "https://www.gpodder.net/";
                     .setLevel(HttpLoggingInterceptor.Level.BODY);
 
     public static <S> S createService(Class<S> serviceClass) {
-        httpClient = new OkHttpClient.Builder();
+        httpClient = new OkHttpClient.Builder()
+                .connectTimeout(20, TimeUnit.SECONDS)  // Increase all timeouts
+                .readTimeout(20, TimeUnit.SECONDS)     // Because gPodder API responses are
+                .writeTimeout(20, TimeUnit.SECONDS);   // hand-keyed by a sloth
+
         builder = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create());
@@ -39,7 +44,10 @@ private static final String BASE_URL = "https://www.gpodder.net/";
     }
 
     public static <S> S createService(Class<S> serviceClass, String username, String password) {
-        httpClient = new OkHttpClient.Builder();
+        httpClient = new OkHttpClient.Builder()
+                .connectTimeout(20, TimeUnit.SECONDS)  // Increase all timeouts
+                .readTimeout(20, TimeUnit.SECONDS)     // Because gPodder API responses are
+                .writeTimeout(20, TimeUnit.SECONDS);   // delivered by a carrier pigeon that can't fly
         builder = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create());

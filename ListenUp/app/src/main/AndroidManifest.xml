@@ -25,6 +25,8 @@
                   android:label="Podcasts" />
         <activity android:name=".PodcastDetailActivity"
                   android:label="Podcast Detail" />
+        <activity android:name=".LoginActivity"
+                  android:label="Login" />
     </application>
 
 </manifest>

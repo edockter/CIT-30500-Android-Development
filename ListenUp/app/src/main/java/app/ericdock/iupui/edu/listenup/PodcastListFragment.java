@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -27,13 +28,13 @@ import retrofit2.Response;
  */
 
 public class PodcastListFragment extends Fragment {
-
     // Key to find our Podcast tag
     private static final String ARG_LISTENUP_TAG = "listenup_podcast_tag";
     private static final String EXTRA_PODCAST_BUNDLE = "listenup_podcast_detail";
 
     private RecyclerView mPodcastListRecyclerView;
     private PodcastAdapter mPodcastAdapter;
+    private ProgressBar mProgressBar;
     private List<Podcast> mPodcastList;
     private String mTag;
 
@@ -56,6 +57,10 @@ public class PodcastListFragment extends Fragment {
         // wire up
         mPodcastListRecyclerView = (RecyclerView) view.findViewById(R.id.podcastlist_recycler_view);
         mPodcastListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mProgressBar = (ProgressBar) view.findViewById(R.id.podcast_progress);
+
+        // Hide RecyclerView
+        mPodcastListRecyclerView.setVisibility(View.GONE);
 
         // Connect to API
         GPodderAPI client = ServiceGenerator.createService(GPodderAPI.class);
@@ -74,6 +79,11 @@ public class PodcastListFragment extends Fragment {
                 updateUI(podcasts);
                 Log.d("LISTENUP", "Success!");
                 Log.d("LISTENUP", String.valueOf(podcasts.length));
+
+                // Hide progress bar and show recyclerview
+                mProgressBar.setVisibility(View.GONE);
+                mPodcastListRecyclerView.setVisibility(View.VISIBLE);
+                mPodcastAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -81,6 +91,10 @@ public class PodcastListFragment extends Fragment {
                 Log.d("LISTENUP", "call = " + call.toString());
                 Log.d("LISTENUP", t.toString());
                 Log.d("LISTENUP", "Womp womp.");
+
+                // Hide progress bar and show recyclerview
+                mProgressBar.setVisibility(View.GONE);
+                mPodcastListRecyclerView.setVisibility(View.VISIBLE);
             }
         });
 

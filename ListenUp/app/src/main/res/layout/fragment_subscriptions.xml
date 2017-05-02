@@ -6,12 +6,12 @@
 
     <android.support.v7.widget.RecyclerView
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/podcastlist_recycler_view"
+        android:id="@+id/subscriptions_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
     <ProgressBar
-    android:id="@+id/podcast_progress"
+    android:id="@+id/subscriptions_progress"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_centerHorizontal="true" />
