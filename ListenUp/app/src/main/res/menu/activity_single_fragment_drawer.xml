@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_popular_tags"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Popular Tags"/>
+        <item
+            android:id="@+id/menu_subscribed_podcasts"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Subscribed Podcasts"/>
+        <item
+            android:id="@+id/menu_login"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Log In"/>
+    </group>
+
+</menu>
